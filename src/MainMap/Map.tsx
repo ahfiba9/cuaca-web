@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import ReactMapGL, {Marker, Popup, ViewportProps, ViewState} from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import React from "react";
 import {MapRef} from "react-map-gl/src/components/static-map";
+import {apiMet, getAllTownLocations} from "src/MainMap/api";
 // import { useLocalState } from "src/utils/useLocalState";
 // import { HousesQuery_houses } from "src/generated/HousesQuery";
 // import { SearchBox } from "./searchBox";
@@ -22,6 +23,16 @@ export const Map = () => {
     zoom: 5,
   });
 
+  const getStateLocation = async () => {
+      const response = await apiMet.get('/locations?locationcategoryid=DISTRICT')
+
+      console.log('response = ', response)
+  }
+
+  useEffect(() => {
+      getAllTownLocations().then()
+  },[])
+
   return (
     <div className="text-black relative">
       <ReactMapGL
@@ -35,7 +46,11 @@ export const Map = () => {
         maxZoom={15}
         mapStyle="mapbox://styles/ahfiba9/ckkxwqdmu5zdz17ogf5tf4912"
         attributionControl={false}
-      />
+      >
+        <h1>
+          this is another test to put state selector
+        </h1>
+      </ReactMapGL>
     </div>
   );
 }
