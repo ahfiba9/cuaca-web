@@ -1,9 +1,10 @@
 import { AnyAction, combineReducers } from 'redux'
 import {GlobalState} from "src/Redux/index";
+import {locationForecastStatesReducer} from "src/MainMap/redux/locationStates";
 
 
 export const reducers = combineReducers({
-
+  locationForecastState: locationForecastStatesReducer
 } as any)
 
 export const rootReducer = (state: GlobalState, action: AnyAction) => {

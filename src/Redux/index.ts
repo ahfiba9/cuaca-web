@@ -1,4 +1,6 @@
+import {Dispatch} from "redux";
 
+export type DispatchType = Dispatch<any>
 
 export interface GlobalState {
 

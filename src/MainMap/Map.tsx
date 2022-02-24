@@ -3,7 +3,7 @@ import ReactMapGL, {Marker, Popup, ViewportProps, ViewState} from "react-map-gl"
 import "mapbox-gl/dist/mapbox-gl.css";
 import React from "react";
 import {MapRef} from "react-map-gl/src/components/static-map";
-import {apiMet, getAllTownLocations} from "src/MainMap/api";
+import {apiMet, hydrateAllLocationsForecastStates, getAllTownLocations} from "src/MainMap/api";
 // import { useLocalState } from "src/utils/useLocalState";
 // import { HousesQuery_houses } from "src/generated/HousesQuery";
 // import { SearchBox } from "./searchBox";
@@ -30,7 +30,7 @@ export const Map = () => {
   }
 
   useEffect(() => {
-      getAllTownLocations().then()
+      hydrateAllLocationsForecastStates().then()
   },[])
 
   return (

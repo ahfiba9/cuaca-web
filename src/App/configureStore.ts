@@ -2,7 +2,16 @@ import { applyMiddleware, compose, createStore, Reducer } from 'redux'
 import thunk from 'redux-thunk'
 import {GlobalState} from "src/Redux";
 import {setGlobalStore} from "src/Redux/store";
+import {rootReducer} from "src/Redux/reducers";
+import {persistReducer, persistStore} from 'redux-persist';
+import storage from 'redux-persist/lib/storage'
 
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 declare const window: any
 
@@ -21,10 +30,13 @@ if (typeof window !== 'undefined') {
 
 export default () => {
   const store = createStore(
-    composeEnhancers(applyMiddleware(thunk))
+      persistedReducer as any as Reducer<GlobalState, any>,
+      composeEnhancers(applyMiddleware(thunk))
   )
+
+  const persistor = persistStore(store)
 
   setGlobalStore(store)
 
-  return { store }
+  return { store, persistor }
 }
